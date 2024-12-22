@@ -44,7 +44,7 @@ let userIDLow;
 let userIDTime = "";
 let proxyIPPool = [];
 let path = '/?ed=2560';
-let 动态UUID;
+let 动态IDUU;
 let link = [];
 let banHosts = [atob('c3BlZWQuY2xvdWRmbGFyZS5jb20=')];
 export default {
@@ -52,18 +52,18 @@ export default {
 		try {
 			const UA = request.headers.get('User-Agent') || 'null';
 			const userAgent = UA.toLowerCase();
-			userID = env.UUID || env.uuid || env.PASSWORD || env.pswd || userID;
-			if (env.KEY || env.TOKEN || (userID && !isValidUUID(userID))) {
-				动态UUID = env.KEY || env.TOKEN || userID;
+			userID = env.IDUU || env.IDUU || env.PASSWORD || env.pswd || userID;
+			if (env.KEY || env.TOKEN || (userID && !isValidIDUU(userID))) {
+				动态IDUU = env.KEY || env.TOKEN || userID;
 				有效时间 = Number(env.TIME) || 有效时间;
 				更新时间 = Number(env.UPTIME) || 更新时间;
-				const userIDs = await 生成动态UUID(动态UUID);
+				const userIDs = await 生成动态IDUU(动态IDUU);
 				userID = userIDs[0];
 				userIDLow = userIDs[1];
 			}
 
 			if (!userID) {
-				return new Response('请设置你的UUID变量，或尝试重试部署，检查变量是否生效？', { 
+				return new Response('请设置你的IDUU变量，或尝试重试部署，检查变量是否生效？', { 
 					status: 404,
 					headers: {
 						"Content-Type": "text/plain;charset=utf-8",
@@ -162,10 +162,10 @@ export default {
 				} else if (路径 == `/${fakeUserID}`) {
 					const fakeConfig = await 生成配置信息(userID, request.headers.get('Host'), sub, 'CF-Workers-SUB', RproxyIP, url, env);
 					return new Response(`${fakeConfig}`, { status: 200 });
-				} else if (url.pathname == `/${动态UUID}/edit` || 路径 == `/${userID}/edit`) {
+				} else if (url.pathname == `/${动态IDUU}/edit` || 路径 == `/${userID}/edit`) {
 					const html = await KV(request, env);
 					return html;
-				} else if (url.pathname == `/${动态UUID}` || 路径 == `/${userID}`) {
+				} else if (url.pathname == `/${动态IDUU}` || 路径 == `/${userID}`) {
 					await sendMessage(`#获取订阅 ${FileName}`, request.headers.get('CF-Connecting-IP'), `UA: ${UA}</tg-spoiler>\n域名: ${url.hostname}\n<tg-spoiler>入口: ${url.pathname + url.search}</tg-spoiler>`);
 					const 维列斯Config = await 生成配置信息(userID, request.headers.get('Host'), sub, UA, RproxyIP, url, env);
 					const now = Date.now();
@@ -201,7 +201,7 @@ export default {
 				} else {
 					if (env.URL302) return Response.redirect(env.URL302, 302);
 					else if (env.URL) return await 代理URL(env.URL, url);
-					else return new Response('不用怀疑！你UUID就是错的！！！', { status: 404 });
+					else return new Response('不用怀疑！你IDUU就是错的！！！', { status: 404 });
 				}
 			} else {
 				socks5Address = url.searchParams.get('socks5') || socks5Address;
@@ -769,16 +769,16 @@ function base64ToArrayBuffer(base64Str) {
 }
 
 /**
- * 这不是真正的 UUID 验证，而是一个简化的版本
- * @param {string} uuid 要验证的 UUID 字符串
- * @returns {boolean} 如果字符串匹配 UUID 格式则返回 true，否则返回 false
+ * 这不是真正的 IDUU 验证，而是一个简化的版本
+ * @param {string} IDUU 要验证的 IDUU 字符串
+ * @returns {boolean} 如果字符串匹配 IDUU 格式则返回 true，否则返回 false
  */
-function isValidUUID(uuid) {
-	// 定义一个正则表达式来匹配 UUID 格式
-	const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+function isValidIDUU(IDUU) {
+	// 定义一个正则表达式来匹配 IDUU 格式
+	const IDUURegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 	
-	// 使用正则表达式测试 UUID 字符串
-	return uuidRegex.test(uuid);
+	// 使用正则表达式测试 IDUU 字符串
+	return IDUURegex.test(IDUU);
 }
 
 // WebSocket 的两个重要状态常量
@@ -807,16 +807,16 @@ for (let i = 0; i < 256; ++i) {
 }
 
 /**
- * 快速地将字节数组转换为 UUID 字符串，不进行有效性检查
+ * 快速地将字节数组转换为 IDUU 字符串，不进行有效性检查
  * 这是一个底层函数，直接操作字节，不做任何验证
- * @param {Uint8Array} arr 包含 UUID 字节的数组
- * @param {number} offset 数组中 UUID 开始的位置，默认为 0
- * @returns {string} UUID 字符串
+ * @param {Uint8Array} arr 包含 IDUU 字节的数组
+ * @param {number} offset 数组中 IDUU 开始的位置，默认为 0
+ * @returns {string} IDUU 字符串
  */
 function unsafeStringify(arr, offset = 0) {
-	// 直接从查找表中获取每个字节的十六进制表示，并拼接成 UUID 格式
+	// 直接从查找表中获取每个字节的十六进制表示，并拼接成 IDUU 格式
 	// 8-4-4-4-12 的分组是通过精心放置的连字符 "-" 实现的
-	// toLowerCase() 确保整个 UUID 是小写的
+	// toLowerCase() 确保整个 IDUU 是小写的
 	return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" +
 		byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" +
 		byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" +
@@ -826,23 +826,23 @@ function unsafeStringify(arr, offset = 0) {
 }
 
 /**
- * 将字节数组转换为 UUID 字符串，并验证其有效性
- * 这是一个安全的函数，它确保返回的 UUID 格式正确
- * @param {Uint8Array} arr 包含 UUID 字节的数组
- * @param {number} offset 数组中 UUID 开始的位置，默认为 0
- * @returns {string} 有效的 UUID 字符串
- * @throws {TypeError} 如果生成的 UUID 字符串无效
+ * 将字节数组转换为 IDUU 字符串，并验证其有效性
+ * 这是一个安全的函数，它确保返回的 IDUU 格式正确
+ * @param {Uint8Array} arr 包含 IDUU 字节的数组
+ * @param {number} offset 数组中 IDUU 开始的位置，默认为 0
+ * @returns {string} 有效的 IDUU 字符串
+ * @throws {TypeError} 如果生成的 IDUU 字符串无效
  */
 function stringify(arr, offset = 0) {
-	// 使用不安全的函数快速生成 UUID 字符串
-	const uuid = unsafeStringify(arr, offset);
-	// 验证生成的 UUID 是否有效
-	if (!isValidUUID(uuid)) {
-		// 原：throw TypeError("Stringified UUID is invalid");
-		throw TypeError(`生成的 UUID 不符合规范 ${uuid}`); 
-		//uuid = userID;
+	// 使用不安全的函数快速生成 IDUU 字符串
+	const IDUU = unsafeStringify(arr, offset);
+	// 验证生成的 IDUU 是否有效
+	if (!isValidIDUU(IDUU)) {
+		// 原：throw TypeError("Stringified IDUU is invalid");
+		throw TypeError(`生成的 IDUU 不符合规范 ${IDUU}`); 
+		//IDUU = userID;
 	}
-	return uuid;
+	return IDUU;
 }
 
 /**
@@ -1182,14 +1182,14 @@ async function 代理URL(代理网址, 目标网址) {
 }
 
 const 啥啥啥_写的这是啥啊 = atob('ZG14bGMzTT0=');
-function 配置信息(UUID, 域名地址) {
+function 配置信息(IDUU, 域名地址) {
 	const 协议类型 = atob(啥啥啥_写的这是啥啊);
 	
 	const 别名 = FileName;
 	let 地址 = 域名地址;
 	let 端口 = 443;
 
-	const 用户ID = UUID;
+	const 用户ID = IDUU;
 	const 加密方式 = 'none';
 	
 	const 传输层协议 = 'ws';
@@ -1207,7 +1207,7 @@ function 配置信息(UUID, 域名地址) {
 	}
 
 	const 威图瑞 = `${协议类型}://${用户ID}@${地址}:${端口}\u003f\u0065\u006e\u0063\u0072\u0079`+'p'+`${atob('dGlvbj0=') + 加密方式}\u0026\u0073\u0065\u0063\u0075\u0072\u0069\u0074\u0079\u003d${传输层安全[0]}&sni=${SNI}&fp=${指纹}&type=${传输层协议}&host=${伪装域名}&path=${encodeURIComponent(路径)}#${encodeURIComponent(别名)}`; 
-	const 猫猫猫 = `- {name: ${FileName}, server: ${地址}, port: ${端口}, type: ${协议类型}, uuid: ${用户ID}, tls: ${传输层安全[1]}, alpn: [h3], udp: false, sni: ${SNI}, tfo: false, skip-cert-verify: true, servername: ${伪装域名}, client-fingerprint: ${指纹}, network: ${传输层协议}, ws-opts: {path: "${路径}", headers: {${伪装域名}}}}`;
+	const 猫猫猫 = `- {name: ${FileName}, server: ${地址}, port: ${端口}, type: ${协议类型}, IDUU: ${用户ID}, tls: ${传输层安全[1]}, alpn: [h3], udp: false, sni: ${SNI}, tfo: false, skip-cert-verify: true, servername: ${伪装域名}, client-fingerprint: ${指纹}, network: ${传输层协议}, ws-opts: {path: "${路径}", headers: {${伪装域名}}}}`;
 	return [威图瑞,猫猫猫];
 }
 
@@ -1297,7 +1297,7 @@ async function 生成配置信息(userID, hostName, sub, UA, RproxyIP, _url, env
 		}
 	}
 
-	const uuid = (_url.pathname == `/${动态UUID}`) ? 动态UUID : userID;
+	const IDUU = (_url.pathname == `/${动态IDUU}`) ? 动态IDUU : userID;
 	const userAgent = UA.toLowerCase();
 	const Config = 配置信息(userID , hostName);
 	const v2ray = Config[0];
@@ -1361,43 +1361,43 @@ async function 生成配置信息(userID, hostName, sub, UA, RproxyIP, _url, env
 			if (addressescsv.length > 0) 订阅器 += `ADDCSV（IPTest测速csv文件 限速 ${DLS} ）: <br>&nbsp;&nbsp;${addressescsv.join('<br>&nbsp;&nbsp;')}<br>`;
 		}
 
-		if (动态UUID && _url.pathname !== `/${动态UUID}`) 订阅器 = '';
+		if (动态IDUU && _url.pathname !== `/${动态IDUU}`) 订阅器 = '';
 		else 订阅器 += `<br>SUBAPI（订阅转换后端）: ${subProtocol}://${subConverter}<br>SUBCONFIG（订阅转换配置文件）: ${subConfig}`;
-		const 动态UUID信息 = (uuid != userID) ? `TOKEN: ${uuid}<br>UUIDNow: ${userID}<br>UUIDLow: ${userIDLow}<br>${userIDTime}TIME（动态UUID有效时间）: ${有效时间} 天<br>UPTIME（动态UUID更新时间）: ${更新时间} 时（北京时间）<br><br>` : `${userIDTime}`;
+		const 动态IDUU信息 = (IDUU != userID) ? `TOKEN: ${IDUU}<br>IDUUNow: ${userID}<br>IDUULow: ${userIDLow}<br>${userIDTime}TIME（动态IDUU有效时间）: ${有效时间} 天<br>UPTIME（动态IDUU更新时间）: ${更新时间} 时（北京时间）<br><br>` : `${userIDTime}`;
 		const 节点配置页 = `
 			################################################################<br>
 			Subscribe / sub 订阅地址, 支持 Base64、clash-meta、sing-box 订阅格式<br>
 			---------------------------------------------------------------<br>
 			自适应订阅地址:<br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}</a><br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?sub')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?sub</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?sub')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?sub</a><br>
 			<br>
 			Base64订阅地址:<br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?b64')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?b64</a><br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?base64')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?base64</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?b64')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?b64</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?base64')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?base64</a><br>
 			<br>
 			clash订阅地址:<br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?clash')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?clash</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?clash')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?clash</a><br>
 			<br>
 			singbox订阅地址:<br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?sb')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?sb</a><br>
-			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?singbox')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?singbox</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?sb')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?sb</a><br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${IDUU}?singbox')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${IDUU}?singbox</a><br>
 			<br>
 			<strong><a href="javascript:void(0);" id="noticeToggle" onclick="toggleNotice()">实用订阅技巧∨</a></strong><br>
 				<div id="noticeContent" class="notice-content" style="display: none;">
 					<strong>1.</strong> 如您使用的是 PassWall、SSR+ 等路由插件，推荐使用 <strong>Base64订阅地址</strong> 进行订阅；<br>
 					<br>
 					<strong>2.</strong> 快速切换 <a href='${atob('aHR0cHM6Ly9naXRodWIuY29tL2NtbGl1L1dvcmtlclZsZXNzMnN1Yg==')}'>优选订阅生成器</a> 至：sub.google.com，您可将"?sub=sub.google.com"参数添加到链接末尾，例如：<br>
-					&nbsp;&nbsp;https://${proxyhost}${hostName}/${uuid}<strong>?sub=sub.google.com</strong><br>
+					&nbsp;&nbsp;https://${proxyhost}${hostName}/${IDUU}<strong>?sub=sub.google.com</strong><br>
 					<br>
 					<strong>3.</strong> 快速更换 PROXYIP 至：proxyip.fxxk.dedyn.io:443，您可将"?proxyip=proxyip.fxxk.dedyn.io:443"参数添加到链接末尾，例如：<br>
-					&nbsp;&nbsp; https://${proxyhost}${hostName}/${uuid}<strong>?proxyip=proxyip.fxxk.dedyn.io:443</strong><br>
+					&nbsp;&nbsp; https://${proxyhost}${hostName}/${IDUU}<strong>?proxyip=proxyip.fxxk.dedyn.io:443</strong><br>
 					<br>
 					<strong>4.</strong> 快速更换 SOCKS5 至：user:password@127.0.0.1:1080，您可将"?socks5=user:password@127.0.0.1:1080"参数添加到链接末尾，例如：<br>
-					&nbsp;&nbsp;https://${proxyhost}${hostName}/${uuid}<strong>?socks5=user:password@127.0.0.1:1080</strong><br>
+					&nbsp;&nbsp;https://${proxyhost}${hostName}/${IDUU}<strong>?socks5=user:password@127.0.0.1:1080</strong><br>
 					<br>
 					<strong>5.</strong> 如需指定多个参数则需要使用'&'做间隔，例如：<br>
-					&nbsp;&nbsp;https://${proxyhost}${hostName}/${uuid}?sub=sub.google.com<strong>&</strong>proxyip=proxyip.fxxk.dedyn.io<br>
+					&nbsp;&nbsp;https://${proxyhost}${hostName}/${IDUU}?sub=sub.google.com<strong>&</strong>proxyip=proxyip.fxxk.dedyn.io<br>
 				</div>
 			<script>
 			function copyToClipboard(text) {
@@ -1424,8 +1424,8 @@ async function 生成配置信息(userID, hostName, sub, UA, RproxyIP, _url, env
 			################################################################<br>
 			${FileName} 配置信息<br>
 			---------------------------------------------------------------<br>
-			${动态UUID信息}HOST: ${hostName}<br>
-			UUID: ${userID}<br>
+			${动态IDUU信息}HOST: ${hostName}<br>
+			IDUU: ${userID}<br>
 			FKID: ${fakeUserID}<br>
 			UA: ${UA}<br>
 			${订阅器}<br>
@@ -1471,7 +1471,7 @@ async function 生成配置信息(userID, hostName, sub, UA, RproxyIP, _url, env
 			fakeHostName = `${fakeHostName}.xyz`
 		}
 		console.log(`虚假HOST: ${fakeHostName}`);
-		let url = `${subProtocol}://${sub}/sub?host=${fakeHostName}&uuid=${fakeUserID + atob('JmVkZ2V0dW5uZWw9Y21saXUmcHJveHlpcD0=') + RproxyIP}&path=${encodeURIComponent(path)}`;
+		let url = `${subProtocol}://${sub}/sub?host=${fakeHostName}&IDUU=${fakeUserID + atob('JmVkZ2V0dW5uZWw9Y21saXUmcHJveHlpcD0=') + RproxyIP}&path=${encodeURIComponent(path)}`;
 		let isBase64 = true;
 
 		if (!sub || sub == ""){
@@ -1690,7 +1690,7 @@ async function 整理测速结果(tls) {
 	return newAddressescsv;
 }
 
-function 生成本地订阅(host,UUID,noTLS,newAddressesapi,newAddressescsv,newAddressesnotlsapi,newAddressesnotlscsv) {
+function 生成本地订阅(host,IDUU,noTLS,newAddressesapi,newAddressescsv,newAddressesnotlsapi,newAddressesnotlscsv) {
 	const regex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[.*\]):?(\d+)?#?(.*)?$/;
 	addresses = addresses.concat(newAddressesapi);
 	addresses = addresses.concat(newAddressescsv);
@@ -1747,7 +1747,7 @@ function 生成本地订阅(host,UUID,noTLS,newAddressesapi,newAddressescsv,newA
 			let 节点备注 = '';
 			const 协议类型 = atob(啥啥啥_写的这是啥啊);
 			
-			const 维列斯Link = `${协议类型}://${UUID}@${address}:${port + atob('P2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT0mdHlwZT13cyZob3N0PQ==') + 伪装域名}&path=${encodeURIComponent(最终路径)}#${encodeURIComponent(addressid + 节点备注)}`;
+			const 维列斯Link = `${协议类型}://${IDUU}@${address}:${port + atob('P2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT0mdHlwZT13cyZob3N0PQ==') + 伪装域名}&path=${encodeURIComponent(最终路径)}#${encodeURIComponent(addressid + 节点备注)}`;
 	
 			return 维列斯Link;
 
@@ -1812,7 +1812,7 @@ function 生成本地订阅(host,UUID,noTLS,newAddressesapi,newAddressescsv,newA
 		}
 		
 		const 协议类型 = atob(啥啥啥_写的这是啥啊);
-		const 维列斯Link = `${协议类型}://${UUID}@${address}:${port + atob('P2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT10bHMmc25pPQ==') + 伪装域名}&fp=random&type=ws&host=${伪装域名}&path=${encodeURIComponent(最终路径)}#${encodeURIComponent(addressid + 节点备注)}`;
+		const 维列斯Link = `${协议类型}://${IDUU}@${address}:${port + atob('P2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT10bHMmc25pPQ==') + 伪装域名}&fp=random&type=ws&host=${伪装域名}&path=${encodeURIComponent(最终路径)}#${encodeURIComponent(addressid + 节点备注)}`;
 			
 		return 维列斯Link;
 	}).join('\n');
@@ -1870,7 +1870,7 @@ function isValidIPv4(address) {
 	return ipv4Regex.test(address);
 }
 
-function 生成动态UUID(密钥) {
+function 生成动态IDUU(密钥) {
 	const 时区偏移 = 8; // 北京时间相对于UTC的时区偏移+8小时
 	const 起始日期 = new Date(2007, 6, 7, 更新时间, 0, 0); // 固定起始日期为2007年7月7日的凌晨3点
 	const 一周的毫秒数 = 1000 * 60 * 60 * 24 * 有效时间;
@@ -1882,7 +1882,7 @@ function 生成动态UUID(密钥) {
 		return Math.ceil(时间差 / 一周的毫秒数);
 	}
 
-	function 生成UUID(基础字符串) {
+	function 生成IDUU(基础字符串) {
 		const 哈希缓冲区 = new TextEncoder().encode(基础字符串);
 		return crypto.subtle.digest('SHA-256', 哈希缓冲区).then((哈希) => {
 			const 哈希数组 = Array.from(new Uint8Array(哈希));
@@ -1894,15 +1894,15 @@ function 生成动态UUID(密钥) {
 	const 当前周数 = 获取当前周数(); // 获取当前周数
 	const 结束时间 = new Date(起始日期.getTime() + 当前周数 * 一周的毫秒数);
 
-	// 生成两个 UUID
-	const 当前UUIDPromise = 生成UUID(密钥 + 当前周数);
-	const 上一个UUIDPromise = 生成UUID(密钥 + (当前周数 - 1));
+	// 生成两个 IDUU
+	const 当前IDUUPromise = 生成IDUU(密钥 + 当前周数);
+	const 上一个IDUUPromise = 生成IDUU(密钥 + (当前周数 - 1));
 
 	// 格式化到期时间
 	const 到期时间UTC = new Date(结束时间.getTime() - 时区偏移 * 60 * 60 * 1000); // UTC时间
 	const 到期时间字符串 = `到期时间(UTC): ${到期时间UTC.toISOString().slice(0, 19).replace('T', ' ')} (UTC+8): ${结束时间.toISOString().slice(0, 19).replace('T', ' ')}\n`;
 
-	return Promise.all([当前UUIDPromise, 上一个UUIDPromise, 到期时间字符串]);
+	return Promise.all([当前IDUUPromise, 上一个IDUUPromise, 到期时间字符串]);
 }
 
 async function 迁移地址列表(env, txt = 'ADD.txt') {
